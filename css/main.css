@@ -1,6 +1,4 @@
-body {
-  padding-top: 20px;
-}
+
 
 .footer {
   padding-top: 40px;
@@ -77,5 +75,16 @@ body {
 .pagination{
     padding-left: 10px;
 }
-
-
+.auth-div img{
+/*    line-height: 20px;*/
+    width: 45px;
+    height: 45px;
+    margin-top: 2px;
+    border-radius: 50px;
+}
+.signOut{
+    margin-top: 10px;
+}
+.auth-div> *{
+    display: inline-block;
+}

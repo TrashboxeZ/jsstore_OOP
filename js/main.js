@@ -1,8 +1,9 @@
 function appendProduct(obj) {
-    $('.product-list > .row').append("<div class='col-md-4' data-id = '" + obj.id + "'><h2>" + obj.title + "</h2><p>" + obj.price + "</p><p>" + obj.description + "</p><button class='btn btn-success editProduct' data-toggle='modal' data-target='#myModal'>Edit</button>&nbsp; &nbsp;<button class='btn btn-danger removeProduct'>Delete</button></div></div>");
+    $('.product-list > .row').append("<div class='col-md-4' data-id = '" + obj.id + "'><h2>" + obj.title + "</h2><p>" + obj.price + "</p><p>" + obj.description + "</p><button class='btn btn-success editProduct' data-toggle='modal' data-target='#myModal'>Edit</button>&nbsp; <button class='btn btn-danger removeProduct'>Delete</button>&nbsp; <button class='btn btn-warning addToCart'><i class='fa fa-shopping-cart' aria-hidden='true'></i></button></div></div>");
 }
 
-var result=0;
+var result = 0;
+var count = 0;
 
 
 
@@ -53,13 +54,15 @@ $('.addProduct').click(function () {
 $(document).on('click', '.removeProduct', function () {
     var itemId = $(this).parent().attr('data-id');
     var iId = {
-        id: itemId
+        id: itemId,
+        table: "products"
     }
     if (confirm("Вы действительно хотите удалить?")) {
         var point = this;
         $.post('db_proc/deleteproduct.php', iId, function (res) {
-            if (res.status == "delete") {}
-            $(point).parent().remove();
+            if (res.status == "delete") {
+                $(point).parent().remove();
+            }
         });
     }
 });
@@ -91,19 +94,64 @@ $(document).on('click', '.page-link', function () {
     var page = +$(this).attr('data-id');
     $(document).find('.next').removeClass('invisible');
     $(document).find('.prev').addClass('invisible');
-    
-    if(page == result){
+
+    if (page == result) {
         $(document).find('.next').addClass('invisible');
     }
-    if(page > 1){
+    if (page > 1) {
         $(document).find('.prev').removeClass('invisible');
     }
-    $(document).find('.next').attr('data-id',page + 1);
-    $(document).find('.prev').attr('data-id',page - 1);
-    
+    $(document).find('.next').attr('data-id', page + 1);
+    $(document).find('.prev').attr('data-id', page - 1);
+
     $.get('db_proc/selectproducts.php?page=' + page + "'", function (res) {
         $.each(res, function (id, obj) {
             appendProduct(obj);
         });
     });
+});
+
+$('.signIn').click(function () {
+
+    var data = {
+        email: $('#email').val(),
+        password: $('#pswd').val()
+    }
+
+    $.post('db_proc/auth.php', data, function (res) {
+        if (res.status == 'ok') {
+            location.reload();
+        }
+    });
+});
+
+$('.signOut').click(function () {
+
+    var out = {
+        out: 1
+    }
+
+    $.post('db_proc/auth.php', out, function (res) {
+        if (res.status == 'ok') {
+            location.reload();
+        }
+    });
+});
+
+$(document).on('click', '.addToCart', function () {
+    var itemId = $(this).parent().attr('data-id');
+count++;
+    var iId = {
+        id: itemId,
+        count: count
+    }
+    $.post('db_proc/addToCart.php', iId, function (res) {
+        if(res.status == "ok"){
+            
+            $('.box-label').text(' ' + count);            
+        }
+
+    });
+
+
 });

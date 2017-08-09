@@ -1,2 +1,3 @@
 bower_components/
 configs/db.ini
+temp/

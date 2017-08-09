@@ -1,5 +1,9 @@
 <?php
- session_start();
+session_start();
+require './db.php';
+if ($_SESSION['auth']<>1) {
+    header('Location: index.php');
+    }
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -13,13 +17,6 @@
     </head>
 
     <body>
-        <?php 
-  var_dump($_SESSION);
-    if ($_SESSION['auth']<>1) {
-
-//        var_dump($_SESSION);
-        }
-?>
         <!-- Static navbar -->
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -40,7 +37,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
+                                <li><a href="db_proc/test.php">TEST</a></li>
                                 <li><a href="#">Another action</a></li>
                                 <li><a href="#">Something else here</a></li>
                                 <li role="separator" class="divider"></li>
@@ -83,42 +80,47 @@
                 </div>
         </nav>
         <div class="container">
-            <!-- Jumbotron -->
-            <div class="jumbotron">
-                <h1>Marketing stuff!</h1>
-                <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
-                <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <button class="btn btn-success addProduct" data-toggle="modal" data-target="#myModal">NEW PRODUCT</button>
+            <?php
+                if($query = $db->query("SELECT * FROM caret;")){?>
+                <?php $row = $query->fetch_assoc(); ?>
+                <?php if($row == null){?>
+
+                <div class="inner cover">
+                    <h1 class="cover-heading">Add products to caret</h1>
+                    <p class="lead">You have any products in your caret, please choose something on <a href="index.php">Home page</a>. </p>
+                    <p class="lead">
+                        <a href="index.php" class="btn btn-lg btn-default">Add products</a>
+                    </p>
                 </div>
-            </div>
 
-            <!-- Example row of columns -->
-            <div class="product-list">
-                <div class="row">
+                <?php }else{ ?>
+                <div class="row dTable">
+                    <table class="table">
+                        <thead class="thead-default">
+                            <tr>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>Count</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody tCaret" data-id="1">
 
+                        </tbody>
+                    </table>
                 </div>
-            </div>
+            
 
-            <div class="row">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <div class="col-md-4"></div>
+                <?php } ?>
+                <?php } ?>
 
-            <!-- Site footer -->
-            <footer class="footer">
-                <p>&copy; Company 2017</p>
-            </footer>
+
+
+                <!-- Site footer -->
+                <footer class="footer">
+                    <p>&copy; Company 2017</p>
+                </footer>
 
         </div>
 
@@ -159,7 +161,8 @@
         <!-- /container -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="js/caret.js"></script>
+<!--        <script src="js/main.js"></script>-->
     </body>
 
     </html>

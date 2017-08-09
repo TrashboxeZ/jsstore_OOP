@@ -1,5 +1,8 @@
 <?php
+$configs = parse_ini_file('configs/db.ini');
 
+//echo $configs['host'];
+//var_dump($configs);
 class Db
 {
     private static $instance = null;
@@ -12,7 +15,8 @@ class Db
         return self::$instance;
     }
     private function __construct(){
-        $this->connection =  new mysqli('localhost','root','','jsstore');
+//        $this->connection =  new mysqli($configs['host'], $configs["username"], $configs["password"], $configs["dbname"]);
+        $this->connection =  new mysqli('localhost', 'root','','jsstore');
     }
     private function __clone(){}
     
