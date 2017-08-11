@@ -1,4 +1,6 @@
-
+body{
+    background-color: whitesmoke
+}
 
 .footer {
   padding-top: 40px;
@@ -87,4 +89,21 @@
 }
 .auth-div> *{
     display: inline-block;
+    
+}
+.auth-div> form >button >a{
+    text-decoration: none;
+    color: white;
+}
+.registration {
+    background-color: rgb(239, 239, 239);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    
+    border-radius: 10px;
+}
+.registratin button{
+   text-align: center;  
+}
+.regUser{
+    margin-bottom: 10px;
 }

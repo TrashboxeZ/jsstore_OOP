@@ -14,10 +14,10 @@
 
     <body>
         <?php 
-  var_dump($_SESSION);
-    if ($_SESSION['auth']<>1) {
+    var_dump($_SESSION);
+    if (empty($_SESSION['auth'])) {
 
-//        var_dump($_SESSION);
+        var_dump($_SESSION);
         }
 ?>
         <!-- Static navbar -->
@@ -52,7 +52,7 @@
                     </ul>
                     <div class="auth-div navbar-right">
                         <?php
-                    if($_SESSION['auth']<>1){ ?>
+                    if(empty($_SESSION['auth'])){ ?>
                             <form class="navbar-form navbar-right">
                                 <div class="form-group">
                                     <input type="text" placeholder="Email" class="form-control" id="email">
@@ -60,8 +60,10 @@
                                 <div class="form-group">
                                     <input type="password" placeholder="Password" class="form-control password" id="pswd">
                                 </div>
-                                <button type="button" class="btn btn-success signIn">Sign in</button>
-
+                                <button type="button" class="btn btn-success signIn">Sign In</button>
+                                <span>or</span>
+                                <a class="btn btn-md btn-success" href="registration.php" role="button">Sign Up</a>
+                        </form>
                                 <?php } else{ ?>
                                 <img src="<?php echo $_SESSION['img']; ?>" class='img-square' alt='your photo' width='60' height='60'>
                                 <div class="dropdown">

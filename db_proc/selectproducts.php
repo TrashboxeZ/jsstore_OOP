@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 require '../db.php';
 
-
+$db = Db::getInstance();
 $id = filter_input(INPUT_GET, 'id');
 $num = 6;
 $page = filter_input(INPUT_GET, 'page');

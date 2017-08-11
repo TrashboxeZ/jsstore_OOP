@@ -140,18 +140,48 @@ $('.signOut').click(function () {
 
 $(document).on('click', '.addToCart', function () {
     var itemId = $(this).parent().attr('data-id');
-count++;
+    count++;
     var iId = {
         id: itemId,
         count: count
     }
     $.post('db_proc/addToCart.php', iId, function (res) {
-        if(res.status == "ok"){
-            
-            $('.box-label').text(' ' + count);            
+        if (res.status == "ok") {
+
+            $('.box-label').text(' ' + count);
         }
 
     });
 
 
+});
+
+
+$('.regUser').click(function () {
+
+    if ($('#name').val() != '' || $('#lastname').val() != '' || $('#age').val() != '' || $('#userEmail').val() != '' || $('#password').val() != '') {
+        //    console.log(typeof $('#age').val())
+        $('.errorText').attr('hidden');
+        if ($('#password').val() == $('#confpswd').val()) {
+            var user = {
+                name: $('#name').val(),
+                lastname: $('#lastname').val(),
+                age: $('#age').val(),
+                email: $('#userEmail').val(),
+                password: $('#password').val()
+            }
+        }
+    } else {
+        $('.errorText').removeAttr('hidden');
+    }
+
+        $.post('db_proc/reg.php',user, function(res){
+           if(res.status == "ok")
+               {
+                   $('.jumbotron').children().remove();  
+                   $('.row').remove();
+                   $('.jumbotron').append('<h1>Thanks for join us!</h1>');
+               }
+            
+        });
 });

@@ -7,24 +7,22 @@ require '../db.php';
     $password = filter_input(INPUT_POST, 'password');
     $out = filter_input(INPUT_POST, 'out');
 
-if(!empty($email) && !empty($password) && $out != 1){
-    if($query = $db->query("SELECT * FROM users WHERE email = '{$email}';")){
-        $userInfo = $query->fetch_assoc();
-        $userPassword = $userInfo['password'];
-        if($userPassword === $password){
+if(!empty($email) && !empty($password)){
+    if($query = $db->auth($email, $password)){
             $_SESSION['auth'] = 1;
-            $_SESSION['name'] = $userInfo['firstname'];
-            $_SESSION['img'] = $userInfo['img'];
-            $_SESSION['userId'] = $userInfo['id'];
+            $_SESSION['name'] = $query['firstname'];
+            $_SESSION['img'] = $query['img'];
+            $_SESSION['userId'] = $query['id'];
+            $_SESSION['email'] = $query['email'];
+        
             echo json_encode(["status"=>"ok", "msg"=>"auth complete"]);
         }
-    
-    }else{
+    else{
        echo "неправильный емейл!!";
     }
 }
 if($out == 1){
     $_SESSION = array();
-    $_SESSION['auth'] = 2;
+    unset($_SESSION['auth']);
     echo json_encode(["status"=>"ok", "msg"=>"out complete"]);
 }

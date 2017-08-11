@@ -1,7 +1,8 @@
 <?php
 session_start();
 require './db.php';
-if ($_SESSION['auth']<>1) {
+//var_dump($_SESSION);
+if (empty($_SESSION['auth'])) {
     header('Location: index.php');
     }
 ?>
@@ -49,7 +50,7 @@ if ($_SESSION['auth']<>1) {
                     </ul>
                     <div class="auth-div navbar-right">
                         <?php
-                    if($_SESSION['auth']<>1){ ?>
+                    if(empty($_SESSION['auth'])){ ?>
                             <form class="navbar-form navbar-right">
                                 <div class="form-group">
                                     <input type="text" placeholder="Email" class="form-control" id="email">
@@ -58,7 +59,8 @@ if ($_SESSION['auth']<>1) {
                                     <input type="password" placeholder="Password" class="form-control password" id="pswd">
                                 </div>
                                 <button type="button" class="btn btn-success signIn">Sign in</button>
-
+                                <span>or</span>
+                                <a class="btn btn-md btn-success" href="registration.php" role="button">Sign Up</a>
                                 <?php } else{ ?>
                                 <img src="<?php echo $_SESSION['img']; ?>" class='img-square' alt='your photo' width='60' height='60'>
                                 <div class="dropdown">
@@ -162,7 +164,7 @@ if ($_SESSION['auth']<>1) {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="js/caret.js"></script>
-<!--        <script src="js/main.js"></script>-->
+        <script src="js/main.js"></script>
     </body>
 
     </html>
