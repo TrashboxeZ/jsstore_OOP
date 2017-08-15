@@ -107,3 +107,15 @@ body{
 .regUser{
     margin-bottom: 10px;
 }
+.buy{
+    width: 100%;
+}
+.history p{
+    float: left;
+    margin-left: 30px;
+}
+.history{
+    border-radius: 10px;
+    border: 1px black solid;
+    background-color: #e2e2e2;
+}

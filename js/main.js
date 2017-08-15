@@ -184,4 +184,25 @@ $('.regUser').click(function () {
                }
             
         });
+    
+});
+
+$('.buy').click(function(){
+        
+    if ($('#name').val() != '' && $('#lastname').val() != '' && $('#phone').val() != '' && $('#userEmail').val() != '' && $('#address').val() != '') { 
+        var order = {
+            id:$(this).attr('data-id'),
+            phone: $('#phone').val(),
+            address: $('#address').val(),
+            paytype: $('#paytype').val(),
+            date: $(this).attr('data-date')
+        }
+        $.post('db_proc/buyProd.php', order, function (res){
+           if(res.status=="ok"){
+                $('.main').children().remove();
+                $('.main').append("<div class='jumbotron'><h1>Thanks for buy in our shop</h1></div>'");
+           }
+            
+        });
+    }
 });

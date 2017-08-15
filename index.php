@@ -35,7 +35,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li><a href="history.php">History</a></li>
                         <li><a href="#contact">Contact</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -68,7 +68,7 @@
                                 <img src="<?php echo $_SESSION['img']; ?>" class='img-square' alt='your photo' width='60' height='60'>
                                 <div class="dropdown">
                                     <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                                        <?php echo $_SESSION['name']; ?>
+                                        <?php echo $_SESSION['firstname']; ?>
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">

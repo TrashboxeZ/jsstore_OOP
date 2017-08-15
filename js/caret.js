@@ -6,6 +6,7 @@ $.get('db_proc/selCart.php',function(res){
     $.each(res,function(id,obj){
         appendFromCart(obj);
     });
+    console.log(res);
 });
 
 

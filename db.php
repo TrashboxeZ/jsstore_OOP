@@ -67,7 +67,7 @@ class Db
         {
             $hash = $this->hashing($password);
         
-            $q = $this->connection->query("SELECT * FROM users WHERE email = '{$email}' AND hash = '{$hash}';");
+            $q = $this->connection->query("SELECT id, firstname,lastname,email,img FROM users WHERE email = '{$email}' AND hash = '{$hash}';");
             $userInfo = $q->fetch_assoc();
             return $userInfo;
         }

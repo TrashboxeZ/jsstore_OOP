@@ -9,12 +9,14 @@ require '../db.php';
 
 if(!empty($email) && !empty($password)){
     if($query = $db->auth($email, $password)){
-            $_SESSION['auth'] = 1;
-            $_SESSION['name'] = $query['firstname'];
-            $_SESSION['img'] = $query['img'];
-            $_SESSION['userId'] = $query['id'];
-            $_SESSION['email'] = $query['email'];
-        
+        $_SESSION['auth'] = 1;
+            foreach($query as $key=>$value){
+                $_SESSION[$key] = $value;
+//            $_SESSION['name'] = $query['firstname'];
+//            $_SESSION['img'] = $query['img'];
+//            $_SESSION['userId'] = $query['id'];
+//            $_SESSION['email'] = $query['email'];
+            }
             echo json_encode(["status"=>"ok", "msg"=>"auth complete"]);
         }
     else{

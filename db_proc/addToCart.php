@@ -6,7 +6,7 @@ $productId = filter_input(INPUT_POST, 'id');
 $count = filter_input(INPUT_POST, 'count');
 
 
-if($query = $db->query("INSERT INTO caret VALUES (null, '{$_SESSION['userId']}', '{$productId}' )")){
+if($query = $db->query("INSERT INTO caret VALUES (null, '{$_SESSION['id']}', '{$productId}' )")){
     echo json_encode([ "status" => "ok", "msg" => "ok" ]);
     $_SESSION['notif'] = $count;
 }

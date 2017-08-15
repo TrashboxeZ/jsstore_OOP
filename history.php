@@ -1,7 +1,7 @@
 <?php
 session_start();
 require './db.php';
-var_dump($_SESSION);
+//var_dump($_SESSION);
 if (empty($_SESSION['auth'])) {
     header('Location: index.php');
     }
@@ -33,7 +33,7 @@ if (empty($_SESSION['auth'])) {
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li><a href="history.php">History</a></li>
                         <li><a href="#contact">Contact</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -81,58 +81,44 @@ if (empty($_SESSION['auth'])) {
                     <!--/.nav-collapse -->
                 </div>
         </nav>
-        <div class="container">
+        <div class="container main">
 
-            <?php
-                if($query = $db->query("SELECT * FROM caret WHERE user_id = '{$_SESSION['id']}'")){?>
-                <?php $row = $query->fetch_assoc(); var_dump($row);?>
-                <?php if($row == null){?>
-
-                <div class="inner cover">
-                    <h1 class="cover-heading">Add products to caret</h1>
-                    <p class="lead">You have any products in your caret, please choose something on <a href="index.php">Home page</a>. </p>
-                    <p class="lead">
-                        <a href="index.php" class="btn btn-lg btn-default">Add products</a>
-                    </p>
-                </div>
-
-                <?php }else{ ?>
-                <div class="row dTable">
-                    <table class="table">
-                        <thead class="thead-default">
-                            <tr>
-                                <th>Title</th>
-                                <th>Price</th>
-                                <th>Count</th>
-                                <th>Option</th>
-                            </tr>
-                        </thead>
-                        <tbody class="tbody tCaret" data-id="1">
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row">
-                    <a class="btn btn-lg btn-success" href="orders.php" role="button">Подтвердить заказ</a>
-                </div>
+        <?php 
+            if($query = $db->query("SELECT p.title, p.price, h.status, pt.type, h.date FROM products p, history h, paytype pt WHERE p.id = h.product_id AND h.user_id = '{$_SESSION['id']}' AND pt.id = h.paytype")){ 
+//            var_dump($query);
+            ?>
             
+           
+            <?php   while($row = $query->fetch_assoc()) {?>
+               <div class="row">
+               <div class="col-md-12 history">
+                   <p><?php echo $row['title'] ?></p>
+                   <p><?php echo $row['price'] ?></p>
+                   <p><?php echo $row['status'] ?></p>
+                   <p><?php echo $row['paytype'] ?></p>
+                   <p><?php echo $row['date'] ?></p>
+               </div> 
+                
+                
+               </div> 
+            <?php } ?>
+            
+        <?php } ?>
+            
+       
 
-                <?php } ?>
-                <?php } ?>
 
 
-
-                <!-- Site footer -->
-                <footer class="footer">
-                    <p>&copy; Company 2017</p>
-                </footer>
+        <footer class="footer">
+            <p>&copy; Company 2017</p>
+        </footer>
 
         </div>
         <!-- /container -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="js/caret.js"></script>
-        <script src="js/main.js"></script>
+        <!--        <script src="js/caret.js"></script>-->
+<!--        <script src="js/main.js"></script>-->
     </body>
 
     </html>
